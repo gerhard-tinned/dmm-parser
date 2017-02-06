@@ -137,7 +137,7 @@ def parse_data(line):
 		timestamp = "[%02d:%02d:%04.1f]" % (now.hour, now.minute, now.second + now.microsecond / 1e6)
 		# Print timestamp, number and units
 		global last
-		diff = now - last
+		diff = "[+%05.2f]" % float(str(now - last).split(':',2)[2])
 		last = now
 		print timestamp, diff, num_str, unit_str
 		# Flush the output so that we can see it in a log
