@@ -19,6 +19,8 @@ import sys
 from datetime import datetime
 from bitarray import bitarray
 
+last = datetime.now()
+
 # Get any serial port from /dev/
 # works in Linux and Mac, should be modified
 # for Windows use
@@ -134,7 +136,10 @@ def parse_data(line):
 		now = datetime.now()
 		timestamp = "[%02d:%02d:%04.1f]" % (now.hour, now.minute, now.second + now.microsecond / 1e6)
 		# Print timestamp, number and units
-		print timestamp, num_str, unit_str
+		global last
+		diff = "[+%05.2f]" % float(str(now - last).split(':',2)[2])
+		last = now
+		print timestamp, diff, num_str, unit_str
 		# Flush the output so that we can see it in a log
 		sys.stdout.flush()
 	except Exception, e:
